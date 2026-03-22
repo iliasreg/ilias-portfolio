@@ -1,5 +1,6 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, WritableSignal } from '@angular/core';
 import { Project, Scene, Skill } from '../models/portfolio.models';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class PortfolioService {
@@ -27,69 +28,29 @@ export class PortfolioService {
   get current(): number { return this._scene(); }
 
 
-  readonly projects: Project[] = [
-    {
-      id: 'p01', index: '01',
-      title: '4D Visualization — IFREMER',
-      category: 'RESEARCH / DATA VISUALIZATION',
-      year: '2026',
-      stack: ['Python', 'VTK', 'PyVista', 'XSF'],
-      description:
-        'Development of a 4D visualization module for an instrumented platform — enabling time-based spatial tracking of sonar antennas and auxiliary sensors relative to the carrier system. Conducted during an engineering internship at IFREMER, Plouzané.',
-      role: 'Engineering Intern',
-    },
-    {
-      id: 'p02', index: '02',
-      title: 'Mascaret — SysML v2 in VR',
-      category: 'XR / SYSTEMS',
-      year: '2025',
-      stack: ['C#', 'Godot', 'Unity', 'MQTT', 'SysML v2'],
-      description:
-        'Implementation of SysML v2 within the Mascaret framework: XML model parsing, immersive visualization in VR environments (Godot, Unity, Unreal), and real-time property editing with MQTT-based synchronization.',
-      role: 'XR Developer',
-    },
-    {
-      id: 'p03', index: '03',
-      title: 'Medical Web Platform',
-      category: 'FULLSTACK / ANGULAR',
-      year: '2024',
-      stack: ['Angular', 'Spring Boot', 'PostgreSQL', 'EmailJS', 'WhatsApp API'],
-      description:
-        'Full-stack medical platform featuring a Spring Boot REST API, PostgreSQL database, and an enhanced Angular frontend. Integrated EmailJS and WhatsApp Business API for automated patient notifications.',
-      role: 'Full-Stack Developer',
-    },
-    {
-      id: 'p04', index: '04',
-      title: 'Secure Self-Hosted NAS',
-      category: 'INFRA / HOMELAB',
-      year: '2024',
-      stack: ['Raspberry Pi', 'Samba', 'Tailscale', 'Linux'],
-      description:
-        'Deployment of a secure personal storage server on a Raspberry Pi Zero 2 W, with Samba file sharing and remote private access via a Tailscale VPN network.',
-      role: 'Personal Project',
-    },
-    {
-      id: 'p05', index: '05',
-      title: 'Round Robin HTTP Load Balancer',
-      category: 'NETWORK / BACKEND',
-      year: '2024',
-      stack: ['Go', 'HTTP', 'Concurrency'],
-      description:
-        'Built a load balancer distributing HTTP requests across multiple backend services using a round-robin strategy, with concurrency handling and health-check mechanisms.',
-      role: 'Technical Project',
-    },
-    {
-      id: 'p06', index: '06',
-      title: 'Robotics & Computer Vision System',
-      category: 'ROBOTICS / AI',
-      year: '2023',
-      stack: ['ROS2', 'Python', 'OpenCV', 'STM32', 'Raspberry Pi 4'],
-      description:
-        'Robotic system integrating ROS2 for sensor orchestration, computer vision modules using OpenCV, and low-level communication with STM32 microcontrollers.',
-      role: 'Robotics Developer',
-    },
-  ];
+  projects = signal<Project[]>([]);
+  projectsLoading = signal(true);
+  projectsError = signal(false);
 
+  private readonly API = 'https://57ks7zsm79.execute-api.us-east-1.amazonaws.com/prod'; 
+
+  constructor(private http: HttpClient){
+    this.loadProjects();
+  }
+
+  private loadProjects(){
+    this.http.get<any>(this.API + '/projects').subscribe({
+      next: (res) => {
+        const data = typeof res.body === 'string' ? JSON.parse(res.body) : res;
+        this.projects.set(data);
+        this.projectsLoading.set(false);
+      },
+      error: () => {
+        this.projectsError.set(true);
+        this.projectsLoading.set(false);
+      }
+    });
+  }
 
   readonly skills: Skill[] = [
     // Frontend

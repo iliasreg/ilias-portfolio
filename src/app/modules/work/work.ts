@@ -11,12 +11,9 @@ import { Project } from '../../core/models/portfolio.models';
   styleUrl: './work.scss',
 })
 export class WorkComponent {
-  projects: Project[];
   openId: string | null = null;
 
-  constructor(public svc: PortfolioService) {
-    this.projects = svc.projects;
-  }
+  constructor(public svc: PortfolioService) {}
 
   toggle(p: Project) {
     this.openId = this.openId === p.id ? null : p.id;

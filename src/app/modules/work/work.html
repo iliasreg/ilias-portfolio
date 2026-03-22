@@ -1,39 +1,58 @@
 <div class="work" animate.enter="anim-clip-up">
-
-  <div class="section-header">
-    <span class="section-title">_WORK</span>
-    <span class="section-count">{{ projects.length }} PROJECTS SELECTED</span>
+<div class="section-header">
+  <span class="section-title">_WORK</span>
+  <span class="section-count">{{ svc.projects().length }} PROJECTS SELECTED</span>
+</div>
+<!-- Loading state -->
+@if (svc.projectsLoading()) {
+  <div class="loading">
+    <span class="loading-dot"></span>
+    <span>Loading projects...</span>
   </div>
+}
 
-  <div class="proj-list">
-    <div
-      class="proj"
-      *ngFor="let p of projects; let i = index; trackBy: trackById"
-      [class.open]="openId === p.id"
-      (click)="toggle(p)"
-      animate.enter="anim-slide-in"
-      [style.animation-delay]="i * 80 + 'ms'"
-    >
-      <div class="proj__row">
-        <span class="proj__index">{{ p.index }}</span>
-        <span class="proj__title">{{ p.title }}</span>
-        <span class="proj__cat">{{ p.category }}</span>
-        <span class="proj__year">{{ p.year }}</span>
-        <span class="proj__toggle">{{ openId === p.id ? '×' : '+' }}</span>
-      </div>
+<!-- Error state -->
+@if (svc.projectsError()) {
+  <div class="error">Error in loading the projects</div>
+}
 
-      @if (openId === p.id) {
-        <div class="proj__detail" animate.enter="anim-expand">
-          <p class="proj__desc">{{ p.description }}</p>
-          <div class="proj__footer">
-            <div class="proj__stack">
-              <span class="tag" *ngFor="let t of p.stack">{{ t }}</span>
-            </div>
-            <span class="proj__role">{{ p.role }}</span>
+<!-- Projects list — only when loaded -->
+@if (!svc.projectsLoading() && !svc.projectsError()) {
+
+      <div class="proj-list">
+        <div
+          class="proj"
+          *ngFor="let p of svc.projects(); let i = index; trackBy: trackById"
+          [class.open]="openId === p.id"
+          (click)="toggle(p)"
+          animate.enter="anim-slide-in"
+          [style.animation-delay]="i * 80 + 'ms'"
+        >
+          <div class="proj__row">
+            <span class="proj__index">{{ p.index }}</span>
+            <span class="proj__title">{{ p.title }}</span>
+            <span class="proj__cat">{{ p.category }}</span>
+            <span class="proj__year">{{ p.year }}</span>
+            <span class="proj__toggle">{{ openId === p.id ? '×' : '+' }}</span>
           </div>
+
+          @if (openId === p.id) {
+            <div class="proj__detail" animate.enter="anim-expand">
+              <p class="proj__desc">{{ p.description }}</p>
+              <div class="proj__footer">
+                <div class="proj__stack">
+                  <span class="tag" *ngFor="let t of p.stack">{{ t }}</span>
+                </div>
+                <span class="proj__role">{{ p.role }}</span>
+              </div>
+            </div>
+          }
+          
         </div>
-      }
-    </div>
-  </div>
+      </div>
+  }
 
 </div>
+
+
+
