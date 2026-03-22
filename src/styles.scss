@@ -1,0 +1,117 @@
+// ── Fonts ────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap');
+
+// ── Reset ────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body               { width: 100%; height: 100%; overflow: hidden; }
+
+// ── Design tokens ────────────────────────────────────────────────
+:root {
+  --bg:      #080808;
+  --bg2:     #0f0f0f;
+  --bg3:     #161616;
+  --fg:      #e8e4dc;
+  --fg2:     rgba(232, 228, 220, 0.55);
+  --fg3:     rgba(232, 228, 220, 0.18);
+  --fg4:     rgba(232, 228, 220, 0.07);
+  --cyan:    #00fff0;
+  --mono:    'Space Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --ease:    cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+// ── Base ─────────────────────────────────────────────────────────
+body {
+  background:  var(--bg);
+  color:       var(--fg);
+  font-family: var(--mono);
+  line-height: 1.6;
+  cursor: none; // custom cursor — defined in app.scss
+}
+
+button { font-family: var(--mono); cursor: none; border: none; }
+a      { cursor: none; }
+
+// ── Noise overlay (subtle film grain) ───────────────────────────
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: .03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+// ── Keyframes (global — required for animate.enter/leave) ────────
+// animate.enter adds a class to the element from outside the component,
+// so these MUST be global (not scoped inside a component stylesheet)
+
+$ease:   cubic-bezier(0.76, 0, 0.24, 1);
+$ease-o: cubic-bezier(0.4,  0, 0.2,  1);
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; transform: translateY(-12px); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-18px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+@keyframes clipUp {
+  from { clip-path: inset(0 0 100% 0); opacity: 0; }
+  to   { clip-path: inset(0 0 0%   0); opacity: 1; }
+}
+@keyframes clipDown {
+  from { clip-path: inset(0 0 0%   0); opacity: 1; }
+  to   { clip-path: inset(100% 0 0 0); opacity: 0; }
+}
+@keyframes drawBar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes expandIn {
+  from { opacity: 0; max-height: 0;     transform: translateY(-8px); }
+  to   { opacity: 1; max-height: 400px; transform: translateY(0);    }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0   rgba(0, 255, 240, .4); }
+  50%      { opacity: .7; box-shadow: 0 0 0 6px rgba(0, 255, 240, 0);  }
+}
+
+// ── Animation utility classes ────────────────────────────────────
+// Pass these strings to animate.enter / animate.leave in templates
+
+.anim-clip-up  { animation: clipUp   650ms #{$ease}   both; }
+.anim-clip-down{ animation: clipDown 400ms #{$ease}   both; }
+.anim-fade-up  { animation: fadeUp   600ms #{$ease}   both; }
+.anim-fade-down{ animation: fadeDown 500ms #{$ease-o} both; }
+.anim-fade-out { animation: fadeOut  350ms #{$ease}   both; }
+.anim-slide-in { animation: slideIn  500ms #{$ease-o} both; }
+.anim-draw-bar {
+  animation:        drawBar 900ms #{$ease} both;
+  transform-origin: left;
+}
+.anim-expand   {
+  animation: expandIn 400ms #{$ease-o} both;
+  overflow:  hidden;
+}
+
+// ── Reduced motion ───────────────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  [class^="anim-"] { animation-duration: 1ms !important; }
+}
+
+// ── Scrollbar ────────────────────────────────────────────────────
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--fg3); border-radius: 2px; }

@@ -1,0 +1,260 @@
+// ── Shell ───────────────────────────────────────────────────────
+.shell {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 240px 1fr 64px;
+  background: var(--bg);
+}
+
+// ── Sidebar ─────────────────────────────────────────────────────
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 1.75rem;
+  border-right: 1px solid var(--fg3);
+  position: relative;
+  z-index: 10;
+}
+
+.sidebar__top {}
+
+.logo {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--fg);
+  letter-spacing: -.01em;
+  margin-bottom: .35rem;
+}
+
+.logo-b {
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.sidebar__status {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: 9px;
+  letter-spacing: .1em;
+  color: var(--fg2);
+  margin-bottom: 2.5rem;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+// ── Nav ──────────────────────────────────────────────────────────
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+
+.nav-btn {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .55rem 0;
+  cursor: none;
+  position: relative;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s;
+}
+
+.nav-btn__index {
+  font-size: 9px;
+  color: var(--fg3);
+  width: 18px;
+  flex-shrink: 0;
+  transition: color .3s;
+  font-family: var(--mono);
+}
+
+.nav-btn__label {
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: var(--fg2);
+  font-family: var(--mono);
+  transition: color .3s;
+}
+
+.nav-btn__bar {
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--cyan);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s cubic-bezier(.76, 0, .24, 1);
+}
+
+.nav-btn.active {
+  .nav-btn__index { color: var(--cyan); }
+  .nav-btn__label { color: var(--fg); }
+  .nav-btn__bar   { transform: scaleX(1); }
+}
+
+.nav-btn:hover:not(.active) .nav-btn__label { color: var(--fg); }
+
+// ── Sidebar foot ─────────────────────────────────────────────────
+.sidebar__foot {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  font-size: 9px;
+  color: var(--fg3);
+  line-height: 1.8;
+
+  a {
+    color: var(--fg3);
+    text-decoration: none;
+    transition: color .25s;
+
+    &:hover { color: var(--cyan); }
+  }
+}
+
+// ── Stage ────────────────────────────────────────────────────────
+.stage {
+  position: relative;
+  overflow: hidden;
+  // Section components use :host { position: absolute; inset: 0 }
+}
+
+// ── Right rail ───────────────────────────────────────────────────
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0;
+  border-left: 1px solid var(--fg3);
+}
+
+.pdots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pdot {
+  all: unset;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--fg3);
+  cursor: none;
+  transition: background .3s, transform .3s;
+
+  &.pdot--on {
+    background: var(--cyan);
+    transform: scale(1.75);
+  }
+}
+
+.scroll-hint {
+  font-size: 9px;
+  color: var(--fg3);
+  letter-spacing: .12em;
+  writing-mode: vertical-rl;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+
+  &::after {
+    content: '';
+    width: 1px;
+    height: 36px;
+    background: var(--fg3);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+}
+
+@keyframes scrollLine {
+  0%   { transform: scaleY(0); transform-origin: top;    }
+  49%  { transform: scaleY(1); transform-origin: top;    }
+  51%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+// ── Custom cursor ────────────────────────────────────────────────
+.cursor {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(0, 255, 240, 0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width .35s, height .35s;
+}
+
+// ── Ambient background (scene-specific blobs) ────────────────────
+// Driven by [attr.data-scene] on .shell
+.shell::before,
+.shell::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  transition: all 1.4s cubic-bezier(.76, 0, .24, 1);
+  z-index: 0;
+}
+
+.shell::before {
+  width: 500px;
+  height: 400px;
+  top: -100px;
+  right: -50px;
+}
+
+.shell::after {
+  width: 400px;
+  height: 400px;
+  bottom: -80px;
+  left: 8%;
+}
+
+.shell[data-scene="0"] {
+  &::before { background: #001a18; opacity: .7; }
+  &::after  { background: #1a0000; opacity: .35; }
+}
+.shell[data-scene="1"] {
+  &::before { background: #0a0020; opacity: .6; }
+  &::after  { background: #001a18; opacity: .5; }
+}
+.shell[data-scene="2"] {
+  &::before { background: #1a1000; opacity: .5; }
+  &::after  { background: #00101a; opacity: .6; }
+}
+.shell[data-scene="3"] {
+  &::before { background: #001a18; opacity: .4; }
+  &::after  { background: #0a0020; opacity: .6; }
+}

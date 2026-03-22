@@ -1,0 +1,110 @@
+:host {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 3rem 4.5rem;
+  overflow: hidden;
+}
+
+.work { width: 100%; max-width: 840px; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 1rem;
+  margin-bottom: .5rem;
+  border-bottom: 1px solid var(--fg3);
+  animation: fadeDown 500ms var(--ease) 100ms both;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  color: var(--cyan);
+}
+
+.section-count { font-size: 10px; color: var(--fg2); }
+
+// Project rows
+.proj {
+  border-bottom: 1px solid var(--fg3);
+  cursor: none;
+  transition: border-color .25s;
+
+  &:hover       { border-color: var(--fg2); }
+  &.open        { border-color: var(--cyan); }
+}
+
+.proj__row {
+  display: grid;
+  grid-template-columns: 36px 1fr 180px 52px 28px;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.proj__index  { font-size: 10px; color: var(--fg3); }
+
+.proj__title {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+  transition: color .25s;
+
+  .proj:hover & { color: var(--cyan); }
+}
+
+.proj__cat  { font-size: 9px; letter-spacing: .1em; color: var(--fg2); }
+.proj__year { font-size: 10px; color: var(--fg3); text-align: right; }
+
+.proj__toggle {
+  font-size: 20px;
+  color: var(--fg3);
+  text-align: right;
+  transition: color .25s, transform .25s;
+
+  .proj.open & { color: var(--cyan); }
+}
+
+// Detail panel — CSS handles the expand, animate.enter handles the timing
+.proj__detail {
+  padding-bottom: 1.25rem;
+}
+
+.proj__desc {
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--fg2);
+  margin-bottom: .75rem;
+}
+
+.proj__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.proj__stack { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+.tag {
+  font-size: 9px;
+  letter-spacing: .07em;
+  padding: 3px 8px;
+  border: 1px solid var(--fg3);
+  color: var(--fg2);
+  font-family: var(--mono);
+}
+
+.proj__role {
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--cyan);
+  font-family: var(--mono);
+}

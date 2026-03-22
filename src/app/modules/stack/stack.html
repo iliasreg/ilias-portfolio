@@ -1,0 +1,44 @@
+<div class="stack" animate.enter="anim-clip-up">
+
+  <div class="section-header">
+    <span class="section-title">_STACK</span>
+    <div class="filters">
+      <button
+        class="filter"
+        *ngFor="let cat of categories"
+        [class.filter--on]="activeFilter() === cat"
+        (click)="setFilter(cat)"
+      >{{ cat }}</button>
+    </div>
+  </div>
+
+  <!-- Key on filter so Angular re-renders the list on filter change = re-triggers animate.enter -->
+  <div class="skill-grid" [attr.data-filter]="activeFilter()">
+    <div
+      class="skill-row"
+      *ngFor="let s of filtered(); let i = index"
+      animate.enter="anim-slide-in"
+      [style.animation-delay]="i * 55 + 'ms'"
+    >
+      <div class="skill-top">
+        <span class="skill-name">{{ s.name }}</span>
+        <span class="skill-pct">{{ s.level }}%</span>
+      </div>
+      <div class="skill-track">
+        <!-- animate.enter on the fill bar — draws from left each time the section loads -->
+        <div
+          class="skill-fill"
+          animate.enter="anim-draw-bar"
+          [style.width.%]="s.level"
+          [style.animation-delay]="(i * 55 + 200) + 'ms'"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stack-note">
+    <p>Currently learning : <span>Mesh Calculation and 3D Visualisation (VTK, PyVista, Trame)</span></p>
+    <p>Avbailable For : <span>Apprenticeship · Freelance · Collaboration</span></p>
+  </div>
+
+</div>

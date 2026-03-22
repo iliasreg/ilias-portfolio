@@ -1,0 +1,101 @@
+:host {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 3rem 4.5rem;
+  overflow: hidden;
+}
+
+.stack { width: 100%; max-width: 840px; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--fg3);
+  animation: fadeDown 500ms var(--ease) 100ms both;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  color: var(--cyan);
+}
+
+// Filter buttons
+.filters { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+.filter {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  padding: 5px 12px;
+  background: none;
+  border: 1px solid var(--fg3);
+  color: var(--fg2);
+  cursor: none;
+  transition: all .2s;
+
+  &:hover       { border-color: var(--fg2); color: var(--fg); }
+  &.filter--on  { background: var(--cyan); color: #080808; border-color: var(--cyan); }
+}
+
+// Skill grid
+.skill-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 4rem;
+  margin-bottom: 2rem;
+}
+
+.skill-row {}
+
+.skill-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .4rem;
+}
+
+.skill-name { font-size: 11px; color: var(--fg); }
+.skill-pct  { font-size: 10px; color: var(--cyan); font-family: var(--mono); }
+
+.skill-track {
+  height: 1px;
+  background: var(--fg3);
+  position: relative;
+  overflow: visible;
+}
+
+.skill-fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cyan), rgba(0,255,240,.25));
+  transform-origin: left;
+  // Width is set via [style.width.%] binding in template
+  // transform: scaleX(0) → scaleX(1) handled by anim-draw-bar class
+}
+
+// Stack note
+.stack-note {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--fg3);
+  animation: fadeUp 500ms var(--ease) 800ms both;
+
+  p {
+    font-size: 11px;
+    color: var(--fg2);
+
+    span { color: var(--fg); }
+  }
+}

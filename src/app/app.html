@@ -1,0 +1,64 @@
+<!-- Custom cursor -->
+<div class="cursor"      [style.left.px]="cx" [style.top.px]="cy"></div>
+<div class="cursor-ring" [style.left.px]="rx" [style.top.px]="ry"></div>
+
+<!-- Fixed shell -->
+<div class="shell" [attr.data-scene]="svc.currentScene()">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar__top">
+      <div class="logo">
+        <span class="logo-b">[</span>IR<span class="logo-b">]</span>
+      </div>
+      <div class="sidebar__status">
+        <span class="status-dot"></span>
+        BREST, FR
+      </div>
+    </div>
+
+    <!-- nav: svc.currentScene() reads the signal directly, no subscribe -->
+    <nav class="sidebar__nav">
+      <button
+        class="nav-btn"
+        *ngFor="let scene of svc.scenes"
+        [class.active]="svc.currentScene() === scene.id"
+        (click)="svc.goTo(scene.id)"
+      >
+        <span class="nav-btn__index">0{{ scene.id }}</span>
+        <span class="nav-btn__label">{{ scene.label }}</span>
+        <div class="nav-btn__bar"></div>
+      </button>
+    </nav>
+
+    <div class="sidebar__foot">
+      <span>© 2026</span>
+      <a href="https://github.com/iliasreg" target="_blank">↗ github</a>
+      <a href="https://linkedin.com/reguig-ilias" target="_blank">↗ linkedin</a>
+    </div>
+
+  </aside>
+
+  <!-- Stage: *ngIf destroys/recreates = animate.enter fires every time -->
+  <main class="stage">
+    <app-home    *ngIf="svc.currentScene() === 0"></app-home>
+    <app-work    *ngIf="svc.currentScene() === 1"></app-work>
+    <app-stack   *ngIf="svc.currentScene() === 2"></app-stack>
+    <app-contact *ngIf="svc.currentScene() === 3"></app-contact>
+  </main>
+
+  <!-- Right rail — progress dots -->
+  <div class="rail">
+    <div class="pdots">
+      <button
+        class="pdot"
+        *ngFor="let scene of svc.scenes"
+        [class.pdot--on]="svc.currentScene() === scene.id"
+        (click)="svc.goTo(scene.id)"
+      ></button>
+    </div>
+    <div class="scroll-hint">SCROLL</div>
+  </div>
+
+</div>

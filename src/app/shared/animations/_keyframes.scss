@@ -1,0 +1,113 @@
+/*
+  _keyframes.scss
+  ─────────────────────────────────────────────────────────────────
+  All @keyframes + animation utility classes for the portfolio.
+  Import this once in styles.scss — do NOT scope inside a component,
+  because animate.enter/leave adds classes to the host element from
+  outside, so the styles must be global.
+
+  Import in styles.scss:
+    @use 'app/shared/animations/keyframes' as *;
+  ─────────────────────────────────────────────────────────────────
+*/
+
+$ease:  cubic-bezier(0.76, 0, 0.24, 1);
+$ease-o: cubic-bezier(0.4, 0, 0.2, 1);
+
+// ── Keyframe definitions ─────────────────────────────────────────
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0);    }
+  to   { opacity: 0; transform: translateY(-16px); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-18px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+
+@keyframes clipUp {
+  from { clip-path: inset(0 0 100% 0); opacity: 0; }
+  to   { clip-path: inset(0 0 0%   0); opacity: 1; }
+}
+
+@keyframes clipDown {
+  from { clip-path: inset(0 0 0%   0); opacity: 1; }
+  to   { clip-path: inset(100% 0 0 0); opacity: 0; }
+}
+
+@keyframes drawBar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes expandIn {
+  from { opacity: 0; max-height: 0;    transform: translateY(-8px); }
+  to   { opacity: 1; max-height: 300px; transform: translateY(0);   }
+}
+
+// ── Animation classes ─────────────────────────────────────────────
+// These are what you pass to animate.enter / animate.leave
+
+.anim-fade-up {
+  animation: fadeUp 600ms #{$ease} both;
+}
+
+.anim-fade-down {
+  animation: fadeDown 500ms #{$ease-o} both;
+}
+
+.anim-fade-out {
+  animation: fadeOut 350ms #{$ease} both;
+}
+
+.anim-slide-in {
+  animation: slideIn 500ms #{$ease-o} both;
+}
+
+.anim-clip-up {
+  animation: clipUp 650ms #{$ease} both;
+}
+
+.anim-clip-down {
+  animation: clipDown 400ms #{$ease} both;
+}
+
+.anim-draw-bar {
+  animation: drawBar 900ms #{$ease} both;
+  transform-origin: left;
+}
+
+.anim-expand {
+  animation: expandIn 400ms #{$ease-o} both;
+  overflow: hidden;
+}
+
+// ── Stagger helper ─────────────────────────────────────────────────
+// Use with [style.animation-delay] binding in templates
+// e.g. [style.animation-delay]="i * 70 + 'ms'"
+// No special class needed — delay is applied inline
+
+// ── Reduced motion ─────────────────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-up,
+  .anim-fade-down,
+  .anim-fade-out,
+  .anim-slide-in,
+  .anim-clip-up,
+  .anim-clip-down,
+  .anim-draw-bar,
+  .anim-expand {
+    animation-duration: 1ms !important;
+  }
+}
