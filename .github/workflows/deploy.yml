@@ -2,7 +2,7 @@ name: Deploy Portfolio
 
 on:
   push:
-    branches: [main]       # triggers on every push to main
+    branches: [master]       # triggers on every push to main
   workflow_dispatch:       # also allows manual trigger from GitHub UI
 
 jobs:
