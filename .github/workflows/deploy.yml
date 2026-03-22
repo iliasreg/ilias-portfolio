@@ -1,0 +1,57 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches: [main]       # triggers on every push to main
+  workflow_dispatch:       # also allows manual trigger from GitHub UI
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1 — Checkout your code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2 — Set up Node (cache npm for faster runs)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'         # caches node_modules between runs
+
+      # 3 — Install dependencies (ci = clean, reproducible install)
+      - name: Install
+        run: npm ci
+
+      # 4 — Build Angular for production
+      - name: Build
+        run: npm run build -- --configuration production
+
+      # 5 — Authenticate with AWS using secrets
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # 6 — Sync build output to S3 (--delete removes old files)
+      - name: Deploy to S3
+        run: |
+          aws s3 sync dist/portfolio/browser \
+            s3://${{ secrets.S3_BUCKET }} \
+            --delete \
+            --cache-control "max-age=31536000,immutable"
+          # index.html must NOT be cached long-term
+          aws s3 cp dist/portfolio/browser/index.html \
+            s3://${{ secrets.S3_BUCKET }}/index.html \
+            --cache-control "no-cache,no-store,must-revalidate"
+
+      # 7 — Bust CloudFront cache so users see the new version immediately
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_ID }} \
+            --paths "/*"
