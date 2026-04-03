@@ -1,13 +1,10 @@
-<!-- Custom cursor -->
+<!-- Cursor -->
 <div class="cursor"      [style.left.px]="cx" [style.top.px]="cy"></div>
 <div class="cursor-ring" [style.left.px]="rx" [style.top.px]="ry"></div>
 
-<!-- Fixed shell -->
 <div class="shell" [attr.data-scene]="svc.currentScene()">
 
-  <!-- Sidebar -->
   <aside class="sidebar">
-
     <div class="sidebar__top">
       <div class="logo">
         <span class="logo-b">[</span>IR<span class="logo-b">]</span>
@@ -18,7 +15,6 @@
       </div>
     </div>
 
-    <!-- nav: svc.currentScene() reads the signal directly, no subscribe -->
     <nav class="sidebar__nav">
       <button
         class="nav-btn"
@@ -37,10 +33,8 @@
       <a href="https://github.com/iliasreg" target="_blank">↗ github</a>
       <a href="https://linkedin.com/reguig-ilias" target="_blank">↗ linkedin</a>
     </div>
-
   </aside>
 
-  <!-- Stage: *ngIf destroys/recreates = animate.enter fires every time -->
   <main class="stage">
     <app-home    *ngIf="svc.currentScene() === 0"></app-home>
     <app-work    *ngIf="svc.currentScene() === 1"></app-work>
@@ -48,7 +42,6 @@
     <app-contact *ngIf="svc.currentScene() === 3"></app-contact>
   </main>
 
-  <!-- Right rail — progress dots -->
   <div class="rail">
     <div class="pdots">
       <button

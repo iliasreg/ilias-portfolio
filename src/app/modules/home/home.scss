@@ -1,9 +1,8 @@
 :host {
-  position: absolute;
-  inset: 0;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
-  padding: 3rem 5rem;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 5vw, 5rem);
   overflow: hidden;
 }
 
@@ -17,33 +16,33 @@
   display: flex;
   align-items: center;
   gap: .75rem;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: .15em;
   color: var(--cyan);
   margin-bottom: 2rem;
-  animation-delay: 100ms; // stagger after clip-up
+  flex-wrap: wrap;
+  animation-delay: 100ms;
 
   .blink { animation: blink 1s step-end infinite; }
 }
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
+  50% { opacity: 0; }
 }
 
-// Big headline
+// Headline
 .home__headline {
   font-family: var(--display);
-  font-size: clamp(54px, 8vw, 108px);
+  font-size: clamp(42px, 10vw, 108px);
   font-weight: 800;
-  line-height: .92;
+  line-height: 1;
   letter-spacing: -.03em;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .hl {
   display: block;
-  // Individual staggered animations via CSS — no Angular animation engine needed
   animation: fadeUp 650ms var(--ease) both;
 
   &:nth-child(1) { animation-delay: 150ms; }
@@ -62,19 +61,20 @@
 
 // Sub
 .home__sub {
-  font-size: 13px;
-  line-height: 1.9;
+  font-size: clamp(12px, 2.8vw, 13px);
+  line-height: 1.7;
   color: var(--fg2);
-  max-width: 460px;
+  max-width: 100%;
   margin-bottom: 2.5rem;
   animation: fadeUp 600ms var(--ease) 500ms both;
 }
 
-// CTAs
+// Actions
 .home__actions {
   display: flex;
   gap: 1rem;
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 3rem;
   animation: fadeUp 600ms var(--ease) 620ms both;
 }
@@ -92,13 +92,13 @@
   transition: all .3s;
 }
 
+// Primary button
 .btn--primary {
   background: var(--cyan);
   color: #080808;
   position: relative;
   overflow: hidden;
 
-  // Reverse fill on hover — pure CSS, no JS
   &::after {
     content: '';
     position: absolute;
@@ -113,27 +113,38 @@
   span { position: relative; z-index: 1; }
 
   &:hover::after { transform: scaleX(1); }
-  &:hover span   { color: var(--cyan); }
+  &:hover span { color: var(--cyan); }
 }
 
+// Ghost button
 .btn--ghost {
   border: 1px solid var(--fg3);
   color: var(--fg2);
   background: transparent;
 
-  &:hover { border-color: var(--cyan); color: var(--cyan); }
+  &:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
 }
 
-.btn__arrow { font-size: 14px; }
+.btn__arrow {
+  font-size: 14px;
+}
 
-// Meta stats
+// Meta
 .home__meta {
-  display: flex;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 2rem;
   animation: fadeUp 600ms var(--ease) 750ms both;
 }
 
-.meta-item { display: flex; flex-direction: column; gap: .25rem; }
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
 
 .meta-num {
   font-family: var(--display);
@@ -147,4 +158,31 @@
   font-size: 9px;
   letter-spacing: .12em;
   color: var(--fg2);
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 700px) {
+  .home__meta {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .home__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .hl {
+    animation-duration: 500ms;
+  }
 }
