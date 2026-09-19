@@ -53,30 +53,37 @@ export class PortfolioService {
   }
 
   readonly skills: Skill[] = [
-    // Frontend
-    { name: 'Angular',        level: 88, category: 'frontend' },
-    { name: 'React / Next.js', level: 80, category: 'frontend' },
-    { name: 'TypeScript',     level: 86, category: 'frontend' },
-    { name: 'SCSS / Tailwind', level: 82, category: 'frontend' },
-    // Backend
-    { name: 'Python / FastAPI', level: 88, category: 'backend' },
-    { name: 'Spring Boot',    level: 82, category: 'backend'  },
-    { name: 'Java / Kotlin',  level: 80, category: 'backend'  },
-    { name: 'Go',             level: 78, category: 'backend'  },
-    // Cloud
-    { name: 'AWS',            level: 78, category: 'cloud'    },
-    { name: 'Docker',         level: 84, category: 'cloud'    },
-    { name: 'CI/CD',          level: 80, category: 'cloud'    },
-    { name: 'Linux / Bash',   level: 86, category: 'cloud'    },
-    // Tools
-    { name: 'Git',            level: 90, category: 'tools'    },
-    { name: 'C / Embedded',   level: 78, category: 'tools'    },
-    { name: 'ROS2 / MQTT',    level: 70, category: 'tools'    },
-    { name: 'Samba / Tailscale', level: 74, category: 'tools' },
-    // Data
-    { name: 'PostgreSQL',     level: 78, category: 'data'     },
-    { name: 'Oracle / SQL',   level: 74, category: 'data'     },
-    { name: 'D3.js / Data Viz', level: 80, category: 'data'   },
-    { name: 'VTK / PyVista',  level: 78, category: 'data'     },
+    { name: 'Angular',            level: 88, category: 'frontend' },
+    { name: 'TypeScript',         level: 86, category: 'frontend' },
+    { name: 'JavaScript',         level: 84, category: 'frontend' },
+    { name: 'SCSS / Tailwind',    level: 82, category: 'frontend' },
+    { name: 'React / Next.js',    level: 80, category: 'frontend' },
+
+    { name: 'Python / FastAPI',   level: 88, category: 'backend'  },
+    { name: 'Spring Boot',        level: 82, category: 'backend'  },
+    { name: 'Java',               level: 80, category: 'backend'  },
+    { name: 'Go',                 level: 78, category: 'backend'  },
+    { name: 'C / C++',            level: 78, category: 'backend'  },
+    { name: 'Kotlin',             level: 76, category: 'backend'  },
+
+    { name: 'Linux / Bash',       level: 86, category: 'cloud'    },
+    { name: 'Docker',             level: 84, category: 'cloud'    },
+    { name: 'CI/CD',              level: 80, category: 'cloud'    },
+    { name: 'AWS',                level: 78, category: 'cloud'    },
+    { name: 'CloudWatch',         level: 74, category: 'cloud'    },
+
+    { name: 'Git',                level: 90, category: 'tools'    },
+    { name: 'Maven / Gradle',     level: 74, category: 'tools'    },
+    { name: 'Samba / Tailscale',  level: 74, category: 'tools'    },
+    { name: 'Wireshark',          level: 72, category: 'tools'    },
+    { name: 'ROS2 / MQTT',        level: 70, category: 'tools'    },
+
+    { name: 'PostgreSQL',         level: 78, category: 'data'     },
+    { name: 'MongoDB',            level: 76, category: 'data'     },
+    { name: 'Oracle / SQL',       level: 74, category: 'data'     },
+    { name: 'SQLite',             level: 72, category: 'data'     },
+    { name: 'D3.js / Data Viz',   level: 80, category: 'data'     },
+    { name: 'VTK / PyVista',      level: 78, category: 'data'     },
+    { name: 'OpenCV',             level: 74, category: 'data'     },
   ];
 }

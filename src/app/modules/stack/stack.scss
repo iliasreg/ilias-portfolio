@@ -244,17 +244,17 @@
 @media (max-width: 850px) { .stack-map { padding: 0 14px 18px; }.stack .section-header { display: block; }.filters { margin-top: 12px; gap: 12px; flex-wrap: wrap; }.skill-grid { grid-template-columns: 1fr; }.map-orbit { top: 47%; }.stack-note { grid-template-columns: 1fr; gap: 10px; } }
 
 /* Dense constellation: every skill remains visible in one viewport. */
-:host { overflow: hidden; }
+:host { overflow: hidden; padding: 34px 8vw 46px; }
 .stack { max-width: 1200px; }
-.stack-intro { margin-bottom: 22px; }
-.stack-intro h1 { margin-top: 16px; margin-bottom: 12px; }
-.stack-map { min-height: 0; height: clamp(300px, 42vh, 420px); padding: 0 22px 18px; }
+.stack-intro { margin-bottom: 20px; }
+.stack-intro h1 { margin-top: 14px; margin-bottom: 10px; }
+.stack-map { min-height: 0; padding: 0 22px 16px; }
 .stack .section-header { padding: 12px 0 10px; }
-.skill-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 14px; padding-top: 10px; }
-.skill-node { min-height: 39px; grid-template-columns: 20px minmax(0, 1fr); gap: 5px; }
+.skill-grid { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 0 16px; padding-top: 8px; }
+.skill-node { min-height: 34px; grid-template-columns: 20px minmax(0, 1fr); gap: 5px; }
 .node-name { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.node-category { grid-column: 2; font-size: 6px; margin-top: -9px; }.node-level { bottom: -1px; }
 .map-orbit--one { width: 220px; height: 108px; }.map-orbit--two { width: 330px; height: 170px; }
-@media (max-width: 850px) { .stack-intro { margin-bottom: 16px; }.stack-map { height: auto; min-height: 0; padding-bottom: 14px; }.skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 10px; }.skill-node { min-height: 38px; }.node-name { font-size: 10px; }.node-category { display: none; }.map-orbit { top: 51%; } }
+@media (max-width: 850px) { :host { padding: 34px 0 60px 24px; overflow: visible; }.stack-intro { margin-bottom: 16px; }.stack-map { padding-bottom: 14px; }.skill-grid { grid-template-columns: repeat(auto-fill, minmax(138px, 1fr)); gap: 0 12px; }.skill-node { min-height: 36px; }.node-name { font-size: 10px; }.node-category { display: none; }.map-orbit { top: 51%; } }
 @media (max-width: 520px) { .stack-intro h1 { font-size: clamp(44px, 13vw, 66px); }.stack-map { padding-left: 10px; padding-right: 10px; }.skill-grid { gap: 0 6px; }.node-index { font-size: 7px; }.node-name { font-size: 9px; } }
 .stack-constellation { position: absolute; z-index: 1; inset: 4% 2%; width: 96%; height: 92%; opacity: .42; overflow: visible; animation: stackConstellationDrift 20s ease-in-out infinite alternate-reverse; pointer-events: none; }
 .stack-constellation path { fill: none; stroke: var(--gray); stroke-width: 1; stroke-dasharray: 4 11; animation: stackConstellationDash 16s linear infinite; }
