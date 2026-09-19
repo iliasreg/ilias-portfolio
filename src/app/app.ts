@@ -1,4 +1,4 @@
-import { Component, HostListener, effect } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from './core/services/portfolio.service';
 import { HomeComponent }    from './modules/home/home';
@@ -22,17 +22,12 @@ import { ContactComponent } from './modules/contact/contact';
 export class App {
   private _wheelLock = false;
 
-  cx = 0; cy = 0;
-  rx = 0; ry = 0;
-  private _raf = 0;
-
-  constructor(public svc: PortfolioService) {
-    this._animateRing();
-  }
+  constructor(public svc: PortfolioService) {}
 
   @HostListener('wheel', ['$event'])
   onWheel(e: WheelEvent) {
-    if (this._wheelLock) return;
+    if (this._wheelLock || e.deltaY === 0) return;
+    e.preventDefault();
     this._wheelLock = true;
     setTimeout(() => this._wheelLock = false, 900);
     e.deltaY > 0 ? this.svc.next() : this.svc.prev();
@@ -40,14 +35,11 @@ export class App {
 
   @HostListener('keydown', ['$event'])
   onKey(e: KeyboardEvent) {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') this.svc.next();
-    if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  this.svc.prev();
-  }
-
-  @HostListener('mousemove', ['$event'])
-  onMove(e: MouseEvent) {
-    this.cx = e.clientX;
-    this.cy = e.clientY;
+    const forward = e.key === 'ArrowDown' || e.key === 'ArrowRight';
+    const backward = e.key === 'ArrowUp' || e.key === 'ArrowLeft';
+    if (!forward && !backward) return;
+    e.preventDefault();
+    forward ? this.svc.next() : this.svc.prev();
   }
 
   @HostListener('touchstart', ['$event'])
@@ -60,9 +52,4 @@ export class App {
   }
 
   private _touchY = 0;
-
-  private _animateRing() {
-    this.rx += (this.cx - this.rx) * 0.1;
-    this.ry += (this.cy - this.ry) * 0.1;
-  }
 }

@@ -1,44 +1,38 @@
 <div class="stack" animate.enter="anim-clip-up">
-
-  <div class="section-header">
-    <span class="section-title">_STACK</span>
-    <div class="filters">
-      <button
-        class="filter"
-        *ngFor="let cat of categories"
-        [class.filter--on]="activeFilter() === cat"
-        (click)="setFilter(cat)"
-      >{{ cat }}</button>
+  <div class="stack-intro">
+    <div class="stack-spine">技術<br><span>FIELD / SIGNAL</span></div>
+    <div>
+      <span class="section-kicker">02 / A MAP OF THE PRACTICE</span>
+      <h1>What I use<br><em>to make.</em></h1>
+      <p>Not a catalogue of tools. A living field of languages, systems and instruments I reach for when an idea needs form.</p>
     </div>
   </div>
 
-  <!-- Key on filter so Angular re-renders the list on filter change = re-triggers animate.enter -->
-  <div class="skill-grid" [attr.data-filter]="activeFilter()">
-    <div
-      class="skill-row"
-      *ngFor="let s of filtered(); let i = index"
-      animate.enter="anim-slide-in"
-      [style.animation-delay]="i * 55 + 'ms'"
-    >
-      <div class="skill-top">
-        <span class="skill-name">{{ s.name }}</span>
-        <span class="skill-pct">{{ s.level }}%</span>
+  <div class="stack-map">
+    <div class="map-orbit map-orbit--one"></div>
+    <div class="map-orbit map-orbit--two"></div>
+    <span class="map-core">IR<br><small>BUILD / RESEARCH</small></span>
+    <span class="particle particle--a"></span><span class="particle particle--b"></span><span class="particle particle--c"></span>
+
+    <div class="section-header">
+      <span class="section-title">THE FIELD / {{ filtered().length | number:'2.0-0' }} SIGNALS</span>
+      <div class="filters">
+        <button class="filter" *ngFor="let cat of categories" [class.filter--on]="activeFilter() === cat" (click)="setFilter(cat)">{{ cat }}</button>
       </div>
-      <div class="skill-track">
-        <!-- animate.enter on the fill bar — draws from left each time the section loads -->
-        <div
-          class="skill-fill"
-          animate.enter="anim-draw-bar"
-          [style.width.%]="s.level"
-          [style.animation-delay]="(i * 55 + 200) + 'ms'"
-        ></div>
+    </div>
+
+    <div class="skill-grid" [attr.data-filter]="activeFilter()">
+      <div class="skill-node" *ngFor="let s of filtered(); let i = index" animate.enter="anim-slide-in" [style.animation-delay]="i * 55 + 'ms'">
+        <span class="node-index">{{ (i + 1).toString().padStart(2, '0') }}</span>
+        <span class="node-name">{{ s.name }}</span>
+        <span class="node-category">{{ s.category }}</span>
+        <span class="node-level" [style.width.%]="s.level"></span>
       </div>
     </div>
   </div>
 
   <div class="stack-note">
-    <p>Currently learning : <span>Mesh Calculation and 3D Visualisation (VTK, PyVista, Trame)</span></p>
-    <p>Avbailable For : <span>Apprenticeship · Freelance · Collaboration</span></p>
+    <p>Currently learning: <span>Mesh calculation · 3D visualisation · VTK · PyVista · Trame</span></p>
+    <p>Available for: <span>Apprenticeship · Freelance · Collaboration</span></p>
   </div>
-
 </div>

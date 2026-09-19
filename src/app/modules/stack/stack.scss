@@ -152,13 +152,109 @@
   }
 }
 
-/* Small mobile */
-@media (max-width: 480px) {
-  :host {
-    padding: 1.25rem;
-  }
 
-  .section-title {
-    font-size: 12px;
-  }
+/* Concept F skills index */
+:host { min-height: 100%; display: flex; align-items: center; padding: 40px 9vw 70px 120px; overflow: hidden; }
+.stack { width: 100%; max-width: 1120px; }
+.section-header { margin-bottom: 26px; padding-bottom: 14px; border-color: var(--ink); }
+.section-title { color: var(--ink); font: 600 18px var(--mincho); letter-spacing: .08em; }
+.filters { gap: 16px; }
+.filter { min-height: 34px; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--gray); font: 8px var(--mono); }
+.filter:hover { border-color: var(--gray); color: var(--ink); }
+.filter.filter--on { border-color: var(--ink); background: transparent; color: var(--ink); }
+.skill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 70px; margin-bottom: 24px; }
+.skill-row { display: grid; grid-template-columns: 1fr 150px; align-items: center; gap: 22px; min-height: 37px; border-bottom: 1px solid var(--pale); }
+.skill-top { margin: 0; }
+.skill-name { color: var(--ink); font: 11px var(--mono); }
+.skill-pct { color: var(--gray); font: 9px var(--mono); }
+.skill-track { height: 1px; background: var(--pale); }
+.skill-fill { height: 1px; background: var(--ink); }
+.stack-note { padding-top: 18px; border-color: var(--ink); gap: 7px; }
+.stack-note p { color: var(--gray); font: 9px var(--mono); text-transform: uppercase; }
+.stack-note p span { color: var(--ink); text-transform: none; }
+
+@media (max-width: 1050px) {
+  .skill-row { grid-template-columns: 1fr 90px; }
 }
+@media (max-width: 850px) {
+  :host { min-height: calc(100dvh - 98px); padding: 50px 0 85px 45px; overflow: visible; }
+  .section-header { align-items: flex-start; }
+  .filters { width: 100%; gap: 10px; }
+  .filter { flex: 0 0 auto; min-height: 44px; }
+  .skill-grid { grid-template-columns: 1fr; }
+}
+
+/* Creative technical constellation */
+:host { min-height: 100%; display: flex; align-items: center; padding: 50px 8vw 70px; overflow: hidden; }
+.stack { max-width: 1180px; }
+.stack-intro { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 28px; align-items: start; margin-bottom: 44px; }
+.stack-intro h1 { margin-bottom: 22px; }
+.stack-intro p { max-width: 450px; }
+.stack-spine { padding-top: 6px; }
+.stack .section-header { align-items: flex-end; margin-bottom: 0; padding: 12px 0; border-color: var(--ink); }
+.stack .section-title { color: var(--ink); font: 10px var(--mono); letter-spacing: .14em; }
+.filters { gap: 18px; }
+.filter { min-height: 28px; }
+.skill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 72px; margin-bottom: 30px; }
+.skill-row { position: relative; grid-template-columns: 1fr 150px; min-height: 48px; gap: 24px; border-bottom: 1px solid var(--pale); }
+.skill-row::before { content: ''; position: absolute; left: 0; bottom: -1px; width: 0; height: 1px; background: var(--ink); transition: width .5s var(--ease); }
+.skill-row:hover::before { width: 100%; }
+.skill-name { font-size: 12px; }
+.skill-pct { color: var(--gray); }
+.skill-track { background: transparent; }
+.skill-fill { background: var(--ink); }
+.stack-note { display: grid; grid-template-columns: 1fr 1fr; column-gap: 72px; padding-top: 22px; }
+.stack-note p { font-size: 8px; }
+
+@media (max-width: 850px) {
+  :host { min-height: calc(100dvh - 44px); padding: 45px 0 80px 28px; overflow: visible; }
+  .stack-intro { grid-template-columns: 40px minmax(0, 1fr); gap: 16px; margin-bottom: 42px; }
+  .stack-spine { font-size: 15px; }
+  .stack-intro h1 { font-size: clamp(52px, 15vw, 78px); }
+  .stack .section-header { align-items: flex-start; }
+  .filters { gap: 10px; }
+  .skill-grid { grid-template-columns: 1fr; }
+  .stack-note { grid-template-columns: 1fr; gap: 10px; }
+}
+
+/* Original signal map: skills orbit a quiet centre instead of sitting in a list. */
+:host { background: var(--rice); }
+.stack { max-width: 1180px; }
+.stack-intro { margin-bottom: 34px; }
+.stack-map { position: relative; min-height: 360px; padding: 0 24px 24px; background: #e8e7e0; border: 1px solid rgba(29,29,26,.28); overflow: hidden; }
+.stack-map::before { content: ''; position: absolute; inset: 0; opacity: .38; background-image: linear-gradient(rgba(29,29,26,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(29,29,26,.06) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(to bottom, #000, transparent 86%); pointer-events: none; }
+.stack-map::after { content: ''; position: absolute; width: 520px; height: 520px; right: -210px; top: -160px; background: radial-gradient(circle, rgba(126, 137, 122, .28) 0 1px, transparent 1px 100%); background-size: 12px 12px; mask-image: radial-gradient(circle, #000, transparent 67%); animation: mapDrift 22s linear infinite; pointer-events: none; }
+.stack .section-header { position: relative; z-index: 2; align-items: center; margin: 0; padding: 16px 0 14px; border-color: rgba(29,29,26,.5); }
+.stack .section-title { color: var(--ink); font: 9px var(--mono); letter-spacing: .13em; }
+.filters { gap: 14px; }
+.filter { min-height: 25px; padding: 3px 0; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--gray); font: 8px var(--mono); cursor: pointer; }
+.filter:hover, .filter.filter--on { border-color: var(--ink); color: var(--ink); background: transparent; }
+.map-orbit { position: absolute; z-index: 1; left: 50%; top: 53%; border: 1px solid rgba(29,29,26,.17); border-radius: 50%; transform: translate(-50%, -50%) rotate(-18deg); pointer-events: none; }
+.map-orbit--one { width: 270px; height: 130px; animation: orbitTilt 16s ease-in-out infinite alternate; }
+.map-orbit--two { width: 390px; height: 210px; transform: translate(-50%, -50%) rotate(32deg); animation: orbitTilt 21s ease-in-out infinite alternate-reverse; }
+.map-core { position: absolute; z-index: 2; left: 50%; top: 53%; width: 74px; height: 74px; display: grid; place-content: center; border: 1px solid var(--ink); border-radius: 50%; transform: translate(-50%, -50%); background: rgba(232,231,224,.86); color: var(--ink); text-align: center; font: 18px var(--mincho); }
+.map-core small { font: 6px var(--mono); letter-spacing: .08em; }
+.particle { position: absolute; z-index: 2; width: 4px; height: 4px; background: var(--ink); border-radius: 50%; opacity: .48; animation: particlePulse 3.4s ease-in-out infinite; }
+.particle--a { left: 24%; top: 34%; }.particle--b { right: 21%; top: 68%; animation-delay: -1.1s; }.particle--c { left: 67%; top: 25%; animation-delay: -2.1s; }
+.skill-grid { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; margin: 0; padding-top: 18px; }
+.skill-node { position: relative; display: grid; grid-template-columns: 28px minmax(0,1fr) auto; align-items: center; min-height: 43px; gap: 8px; border-bottom: 1px solid rgba(29,29,26,.2); transition: background .25s, padding .25s; }
+.skill-node:hover { padding-left: 8px; background: rgba(245,244,238,.6); }
+.node-index { color: var(--gray); font: 8px var(--mono); }.node-name { color: var(--ink); font: 13px var(--mincho); }.node-category { color: var(--gray); font: 7px var(--mono); letter-spacing: .08em; }
+.node-level { position: absolute; left: 0; bottom: -1px; height: 1px; background: var(--ink); opacity: .72; transition: width .5s var(--ease); }
+.stack-note { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: 72px; padding-top: 20px; border-color: var(--ink); }.stack-note p { color: var(--gray); font: 8px var(--mono); text-transform: uppercase; }.stack-note p span { color: var(--ink); text-transform: none; }
+@keyframes mapDrift { to { transform: rotate(360deg) translate3d(10px, -4px, 0); } } @keyframes orbitTilt { to { transform: translate(-50%, -50%) rotate(18deg) scale(1.04); } } @keyframes particlePulse { 50% { opacity: .12; transform: scale(.55); } }
+@media (max-width: 850px) { .stack-map { padding: 0 14px 18px; }.stack .section-header { display: block; }.filters { margin-top: 12px; gap: 12px; flex-wrap: wrap; }.skill-grid { grid-template-columns: 1fr; }.map-core, .map-orbit { top: 47%; }.stack-note { grid-template-columns: 1fr; gap: 10px; } }
+
+/* Dense constellation: every skill remains visible in one viewport. */
+:host { overflow: hidden; }
+.stack { max-width: 1200px; }
+.stack-intro { margin-bottom: 22px; }
+.stack-intro h1 { margin-top: 16px; margin-bottom: 12px; }
+.stack-map { min-height: 0; height: clamp(300px, 42vh, 420px); padding: 0 22px 18px; }
+.stack .section-header { padding: 12px 0 10px; }
+.skill-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 14px; padding-top: 10px; }
+.skill-node { min-height: 39px; grid-template-columns: 20px minmax(0, 1fr); gap: 5px; }
+.node-name { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.node-category { grid-column: 2; font-size: 6px; margin-top: -9px; }.node-level { bottom: -1px; }
+.map-core { top: 52%; width: 64px; height: 64px; }.map-orbit--one { width: 220px; height: 108px; }.map-orbit--two { width: 330px; height: 170px; }
+@media (max-width: 850px) { .stack-intro { margin-bottom: 16px; }.stack-map { height: auto; min-height: 0; padding-bottom: 14px; }.skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 10px; }.skill-node { min-height: 38px; }.node-name { font-size: 10px; }.node-category { display: none; }.map-core, .map-orbit { top: 51%; } }
+@media (max-width: 520px) { .stack-intro h1 { font-size: clamp(44px, 13vw, 66px); }.stack-map { padding-left: 10px; padding-right: 10px; }.skill-grid { gap: 0 6px; }.node-index { font-size: 7px; }.node-name { font-size: 9px; } }

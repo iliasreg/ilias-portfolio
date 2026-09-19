@@ -1,8 +1,18 @@
 <div class="work" animate.enter="anim-clip-up">
-<div class="section-header">
-  <span class="section-title">_WORK</span>
-  <span class="section-count">{{ svc.projects().length }} PROJECTS SELECTED</span>
-</div>
+  <div class="ambient-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="work-intro">
+    <div class="work-spine">作品<br><span>SELECTED WORK</span></div>
+    <div>
+      <span class="section-kicker">01 / FIELD NOTES FROM THE BUILD</span>
+      <h1>Things I build<br><em>to hold.</em></h1>
+      <p>Research tools, cloud systems and interfaces shaped by the same rule: useful should also feel considered.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="section-title">SELECTED PROJECTS</span>
+    <span class="section-count">{{ svc.projects().length }} PROJECTS / 2026</span>
+  </div>
 <!-- Loading state -->
 @if (svc.projectsLoading()) {
   <div class="loading">
@@ -18,39 +28,47 @@
 
 <!-- Projects list — only when loaded -->
 @if (!svc.projectsLoading() && !svc.projectsError()) {
-
-      <div class="proj-list">
-        <div
-          class="proj"
-          *ngFor="let p of svc.projects(); let i = index; trackBy: trackById"
-          [class.open]="openId === p.id"
-          (click)="toggle(p)"
-          animate.enter="anim-slide-in"
-          [style.animation-delay]="i * 80 + 'ms'"
-        >
-          <div class="proj__row">
-            <span class="proj__index">{{ p.index }}</span>
-            <span class="proj__title">{{ p.title }}</span>
-            <span class="proj__cat">{{ p.category }}</span>
-            <span class="proj__year">{{ p.year }}</span>
-            <span class="proj__toggle">{{ openId === p.id ? '×' : '+' }}</span>
-          </div>
-
-          @if (openId === p.id) {
-            <div class="proj__detail" animate.enter="anim-expand">
-              <p class="proj__desc">{{ p.description }}</p>
-              <div class="proj__footer">
-                <div class="proj__stack">
-                  <span class="tag" *ngFor="let t of p.stack">{{ t }}</span>
-                </div>
-                <span class="proj__role">{{ p.role }}</span>
-              </div>
-            </div>
-          }
-          
+  @if (openId === null) {
+    <div class="proj-list">
+      <div
+        class="proj"
+        *ngFor="let p of svc.projects(); let i = index; trackBy: trackById"
+        (click)="toggle(p)"
+        animate.enter="anim-slide-in"
+        [style.animation-delay]="i * 80 + 'ms'"
+      >
+        <div class="proj__row">
+          <span class="proj__index">{{ p.index }}</span>
+          <span class="proj__title">{{ p.title }}</span>
+          <span class="proj__cat">{{ p.category }}</span>
+          <span class="proj__year">{{ p.year }}</span>
+          <button class="proj__toggle" type="button" (click)="toggle(p); $event.stopPropagation()" aria-label="Open project">+</button>
         </div>
       </div>
+    </div>
+  } @else {
+    <div class="project-focus" *ngFor="let p of svc.projects(); trackBy: trackById">
+      @if (openId === p.id) {
+        <div class="focus-card">
+          <div class="focus-topline">
+            <span>{{ p.index }} / {{ p.category }}</span>
+            <button class="focus-close" type="button" (click)="toggle(p)" aria-label="Close project">×</button>
+          </div>
+          <h2>{{ p.title }}</h2>
+          <div class="focus-rule"></div>
+          <p class="focus-description">{{ p.description }}</p>
+          <div class="focus-footer">
+            <div class="proj__stack">
+              <span class="tag" *ngFor="let t of p.stack">{{ t }}</span>
+            </div>
+            <span class="proj__role">{{ p.role }} · {{ p.year }}</span>
+          </div>
+          <span class="focus-mark">SELECTED / PROJECT {{ p.index }}</span>
+        </div>
+      }
+    </div>
   }
+}
 
 </div>
 

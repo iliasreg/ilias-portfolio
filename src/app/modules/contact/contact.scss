@@ -190,17 +190,42 @@
   }
 }
 
-/* Small Mobile */
-@media (max-width: 480px) {
-  :host {
-    padding: 1.5rem 1rem;
-  }
 
-  .contact-headline {
-    font-size: clamp(28px, 10vw, 42px);
-  }
+/* Concept F colophon */
+:host { position: relative; min-height: 100%; display: flex; align-items: center; padding: 40px 12vw 70px 120px; overflow: hidden; }
+.contact { width: 100%; max-width: 980px; display: grid; grid-template-columns: minmax(300px, .9fr) 1.1fr; column-gap: 9vw; align-items: end; }
+.contact-label { grid-column: 1 / -1; margin-bottom: 55px; padding-bottom: 14px; border-bottom: 1px solid var(--ink); font: 600 18px var(--mincho); letter-spacing: .08em; }
+.contact-headline { align-self: start; margin: 0; color: var(--ink); font: 400 clamp(58px, 7.6vw, 116px)/.78 var(--mincho); letter-spacing: -.065em; }
+.contact-headline span { display: block; margin-left: 9%; color: var(--rice); font-style: italic; -webkit-text-stroke: 1.5px var(--ink); }
+.contact-intro { align-self: start; max-width: 370px; margin: 36px 0 0 9%; color: var(--muted); font: 11px/1.8 var(--mono); }
+.contact-links { grid-column: 2; grid-row: 2 / span 2; align-self: end; }
+.clink { grid-template-columns: 74px 1fr 20px; min-height: 56px; padding: 12px 0; border-color: var(--pale); cursor: pointer; }
+.clink:hover { border-color: var(--ink); }
+.clink__label { color: var(--gray); font: 8px var(--mono); }
+.clink__val { color: var(--ink); font: 11px var(--mono); }
+.clink:hover .clink__val { color: var(--ink); font-style: italic; }
+.clink__arr { color: var(--gray); }
+.clink:hover .clink__arr { color: var(--ink); }
+.contact-status { grid-column: 1 / -1; margin-top: 55px; padding-top: 15px; border-top: 1px solid var(--ink); color: var(--muted); font: 9px var(--mono); text-transform: uppercase; }
+.status-dot { width: 5px; height: 5px; background: var(--ink); animation: breathe-dot 3s ease-in-out infinite; }
+@keyframes breathe-dot { 50% { opacity: .25; } }
 
-  .contact-cmd {
-    flex-wrap: wrap;
-  }
+
+/* Give the contact composition room to breathe. */
+:host { padding: 8vh 10vw 9vh 8vw; }
+.contact { max-width: 1120px; grid-template-columns: minmax(390px, .95fr) minmax(320px, .78fr); column-gap: 11vw; }
+.contact-label { margin-bottom: 70px; }
+.contact-headline { font-size: clamp(54px, 6.2vw, 100px); }
+.contact-intro { margin-top: 44px; }
+.contact-links { align-self: center; }
+.clink { min-height: 66px; padding: 17px 0; }
+.contact-status { margin-top: 70px; }
+
+@media (max-width: 850px) {
+  :host { padding: 45px 0 80px 28px; }
+  .contact-label { margin-bottom: 54px; }
+  .contact-intro { margin-top: 32px; }
+  .clink { min-height: 62px; padding: 15px 0; }
+  .contact-status { margin-top: 58px; }
 }
+

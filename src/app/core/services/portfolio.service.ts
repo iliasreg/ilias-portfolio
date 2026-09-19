@@ -13,10 +13,10 @@ export class PortfolioService {
   canGoPrev = computed(() => this._scene() > 0);
 
   readonly scenes: Scene[] = [
-    { id: 0, slug: 'init',    label: '_INIT'    },
-    { id: 1, slug: 'work',    label: '_WORK'    },
-    { id: 2, slug: 'stack',   label: '_STACK'   },
-    { id: 3, slug: 'contact', label: '_CONTACT' },
+    { id: 0, slug: 'home',    label: 'HOME'    },
+    { id: 1, slug: 'work',    label: 'WORK'    },
+    { id: 2, slug: 'stack',   label: 'STACK'   },
+    { id: 3, slug: 'contact', label: 'CONTACT' },
   ];
 
   goTo(n: number): void {

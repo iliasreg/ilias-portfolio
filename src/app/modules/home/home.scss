@@ -171,18 +171,57 @@
   }
 }
 
-@media (max-width: 600px) {
-  .home__actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
 
-  .btn {
-    width: 100%;
-    justify-content: space-between;
-  }
+/* Concept F hero */
+:host { min-height: 100%; display: block; padding: 0; overflow: hidden; }
+.home { width: 100%; height: 100%; max-width: none; display: grid; grid-template-columns: 120px 1fr 350px; position: relative; }
+.vertical-title { font: 600 35px/1.35 var(--mincho); writing-mode: vertical-rl; letter-spacing: .12em; padding-top: 58px; }
+.center { position: relative; padding: 52px 20px 70px 44px; }
+.eyebrow { position: relative; z-index: 3; font: 10px var(--mono); text-transform: uppercase; letter-spacing: .12em; }
+.center h1 { position: relative; z-index: 3; margin: 90px 0 45px; font: 400 clamp(78px, 9.3vw, 150px)/.77 var(--mincho); letter-spacing: -.075em; }
+.center h1 span { display: block; margin-left: 13%; color: var(--rice); font-style: italic; -webkit-text-stroke: 1.5px var(--ink); }
+.intro { position: relative; z-index: 3; max-width: 440px; font: 12px/1.8 var(--mono); }
+.arrow { position: absolute; z-index: 3; left: 45px; bottom: 44px; padding: 0 0 7px; border-bottom: 1px solid var(--ink); background: transparent; font: 10px var(--mono); cursor: pointer; }
 
-  .hl {
-    animation-duration: 500ms;
-  }
+.kinetic { position: absolute; z-index: 1; width: min(410px, 39vw); height: min(410px, 39vw); right: 0; top: 28px; opacity: .98; }
+.kinetic svg { width: 100%; height: 100%; overflow: visible; }
+.kinetic__main, .kinetic__echo, .kinetic__orbit, .kinetic__counter, .kinetic__shutter { transform-box: fill-box; transform-origin: center; }
+.kinetic__main { animation: turn 22s linear infinite, breathe 6s ease-in-out infinite; }
+.kinetic__echo { animation: turn-reverse 31s linear infinite; }
+.kinetic__orbit { animation: turn 9s linear infinite; }
+.kinetic__counter { animation: turn-reverse 14s linear infinite; }
+.kinetic__shutter { animation: shutter 7s var(--ease) infinite; }
+.kinetic__glyph { position: absolute; inset: 0; display: grid; place-items: center; color: var(--rice); font: 400 28px var(--mincho); transform: translate(1px, -2px); }
+.kinetic__caption { position: absolute; right: -22px; top: 190px; writing-mode: vertical-rl; color: var(--gray); font: 8px/1.5 var(--mono); letter-spacing: .16em; }
+@keyframes turn { to { transform: rotate(360deg); } }
+@keyframes turn-reverse { to { transform: rotate(-360deg); } }
+@keyframes breathe { 0%, 100% { scale: 1; } 50% { scale: 1.025; } }
+@keyframes shutter { 0%, 68%, 100% { transform: translateX(0); opacity: .18; } 72% { transform: translateX(34px); opacity: .78; } 78% { transform: translateX(-14px); opacity: .28; } }
+
+.info { position: relative; z-index: 4; display: flex; flex-direction: column; justify-content: space-between; padding: 58px 0 35px 30px; border-left: 1px solid var(--pale); background: linear-gradient(90deg, rgba(241,240,235,.92), var(--rice) 18%); }
+.note { max-width: 260px; font: 17px/1.8 var(--mincho); }
+.note small { color: #666; font: 9px/1.6 var(--mono); }
+.meta { color: var(--muted); font: 9px/1.65 var(--mono); }
+.measure { display: flex; flex-direction: column; }
+.mrow { display: grid; grid-template-columns: 1fr auto; padding: 9px 0; border-top: 1px solid var(--pale); font: 9px var(--mono); text-transform: uppercase; }
+.contact { align-self: flex-start; background: transparent; font: 10px var(--mono); cursor: pointer; }
+
+@media (max-width: 1100px) {
+  .home { grid-template-columns: 70px 1fr 290px; }
+  .vertical-title { font-size: 27px; }
+  .center { padding-left: 25px; }
+  .center h1 { font-size: clamp(64px, 9vw, 105px); }
+}
+
+@media (max-width: 850px) {
+  :host { overflow: visible; }
+  .home { height: auto; min-height: calc(100dvh - 98px); grid-template-columns: 45px 1fr; }
+  .vertical-title { font-size: 24px; padding-top: 32px; }
+  .center { min-height: 610px; padding: 32px 0 80px 20px; }
+  .center h1 { margin: 72px 0 38px; font-size: clamp(62px, 17vw, 105px); }
+  .center h1 span { margin-left: 5%; }
+  .kinetic { right: -180px; top: 45px; width: 410px; height: 410px; opacity: .28; }
+  .kinetic__caption { display: none; }
+  .info { grid-column: 2; min-height: 410px; padding: 40px 0 75px; border-left: 0; border-top: 1px solid var(--ink); background: none; gap: 34px; }
+  .arrow { left: 20px; bottom: 35px; }
 }
