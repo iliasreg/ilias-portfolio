@@ -19,6 +19,11 @@ export class WorkComponent {
   @HostListener('wheel', ['$event'])
   onWheel(e: WheelEvent) {
     const archive = (e.target as HTMLElement).closest('.work') ?? e.currentTarget as HTMLElement;
+
+    // Nothing to browse here (short list, or the page scrolls instead of the
+    // archive): leave the wheel to the shell so sections still move.
+    if (archive.scrollHeight <= archive.clientHeight + 1) return;
+
     const atTop = archive.scrollTop <= 0;
     const atBottom = archive.scrollTop + archive.clientHeight >= archive.scrollHeight - 1;
     const leaving = (e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom);
@@ -39,7 +44,14 @@ export class WorkComponent {
   toggle(p: Project) {
     this.openId = this.openId === p.id ? null : p.id;
     if (this.openId !== null) {
-      setTimeout(() => document.querySelector<HTMLElement>('.work')?.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior }));
+      setTimeout(() => {
+        const archive = document.querySelector<HTMLElement>('.work');
+        if (archive && archive.scrollHeight > archive.clientHeight + 1) {
+          archive.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+        } else {
+          document.querySelector('app-work')?.scrollIntoView({ block: 'start' });
+        }
+      });
     }
   }
 

@@ -81,5 +81,12 @@ button:focus-visible, a:focus-visible { outline: 1px solid var(--ink); outline-o
 }
 
 @media (max-width: 850px) {
-  html, body { overflow: auto; }
+  html, body { overflow-x: hidden; overflow-y: auto; }
+  html { scroll-behavior: smooth; }
+  body { overscroll-behavior-y: none; }
+  main, section, nav { -webkit-tap-highlight-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }

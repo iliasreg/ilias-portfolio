@@ -300,12 +300,16 @@
   .shell {
     position: relative;
     min-height: 100dvh;
-    padding: 22px 35px 22px 22px;
+    padding: 22px 35px 18px 22px;
     overflow: visible;
+    /* Vertical panning belongs to the browser; the swipe handler only claims
+       horizontal drags, so sections stop hijacking a scroll. */
+    touch-action: pan-y;
   }
   .stage { overflow: visible; }
-  .stage > * { position: relative; inset: auto; min-height: calc(100dvh - 44px); height: auto; }
-  .scene-index { right: 9px; gap: 8px; }
+  .stage > * { position: relative; inset: auto; min-height: calc(100dvh - 40px); height: auto; }
+  .scene-index { right: 6px; gap: 6px; }
+  .scene-index button { width: 34px; height: 34px; }
 }
 
 /* Ambient field: constellations and stars behind every section. */

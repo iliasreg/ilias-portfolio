@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService } from './core/services/portfolio.service';
 import { HomeComponent }    from './modules/home/home';
@@ -21,11 +21,24 @@ import { ContactComponent } from './modules/contact/contact';
 })
 export class App {
   private _wheelLock = false;
+  private _touch = { x: 0, y: 0, active: false };
 
-  constructor(public svc: PortfolioService) {}
+  constructor(public svc: PortfolioService) {
+    // A section always opens at its own top. On mobile the page scrolls, so
+    // without this a section change leaves the reader halfway into the new one.
+    effect(() => {
+      this.svc.currentScene();
+      if (typeof window === 'undefined') return;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
 
   @HostListener('wheel', ['$event'])
   onWheel(e: WheelEvent) {
+    // Below the mobile breakpoint the page scrolls, so the wheel belongs to the
+    // browser: claiming it would scroll nothing and block the section.
+    if (window.matchMedia('(max-width: 850px)').matches) return;
     if (this._wheelLock || e.deltaY === 0) return;
     e.preventDefault();
     this._wheelLock = true;
@@ -43,13 +56,30 @@ export class App {
   }
 
   @HostListener('touchstart', ['$event'])
-  onTouchStart(e: TouchEvent) { this._touchY = e.touches[0].clientY; }
+  onTouchStart(e: TouchEvent) {
+    if (this._isInteractive(e.target)) return;
+    const t = e.touches[0];
+    this._touch = { x: t.clientX, y: t.clientY, active: true };
+  }
 
   @HostListener('touchend', ['$event'])
   onTouchEnd(e: TouchEvent) {
-    const dy = this._touchY - e.changedTouches[0].clientY;
-    if (Math.abs(dy) > 50) dy > 0 ? this.svc.next() : this.svc.prev();
+    if (!this._touch.active) return;
+    this._touch.active = false;
+
+    const t = e.changedTouches[0];
+    const dx = t.clientX - this._touch.x;
+    const dy = t.clientY - this._touch.y;
+
+    // Horizontal only, deliberately: a vertical drag is the reader scrolling the
+    // section, and claiming it made the page jump between sections mid-scroll.
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+
+    dx < 0 ? this.svc.next() : this.svc.prev();
   }
 
-  private _touchY = 0;
+  private _isInteractive(target: EventTarget | null): boolean {
+    const el = target as HTMLElement | null;
+    return !!el?.closest?.('a, button, input, textarea, select');
+  }
 }

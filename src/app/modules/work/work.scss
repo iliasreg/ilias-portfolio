@@ -242,11 +242,17 @@
 .proj__footer { align-items: end; }
 
 @media (max-width: 850px) {
-  :host { align-items: stretch; padding: 28px 0 28px 28px; }
-  .work { height: 100%; padding-right: 12px; }
+  :host { align-items: stretch; overflow: visible; padding: 24px 0 40px 24px; }
+  /* The page owns the scroll on mobile: a second scroller inside the section
+     traps the gesture and makes the reading feel jerky. */
+  .work { height: auto; overflow: visible; padding: 0 12px 0 0; }
   .proj-list { grid-template-columns: 1fr; }
-  .proj { min-height: 180px; }
-  .proj__row { min-height: 180px; }
+  .proj { min-height: 170px; }
+  .proj__row { min-height: 170px; }
+  .work:has(.focus-card) { overflow: visible; }
+  .work:has(.focus-card) .focus-card { min-height: 0; }
+  .proj__toggle { width: 36px; height: 36px; line-height: 32px; }
+  .focus-close { width: 40px; height: 40px; }
 }
 
 /* Focus composition: the selected project becomes the whole field. */

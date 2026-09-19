@@ -290,7 +290,7 @@
 }
 
 @media (max-width: 850px) {
-  :host { position: relative; inset: auto; align-items: flex-start; padding: 32px 0 70px 22px; overflow: visible; }
+  :host { position: relative; inset: auto; align-items: flex-start; padding: 32px 0 60px 24px; overflow: visible; }
   .contact { grid-template-columns: 34px minmax(0, 1fr); column-gap: 16px; row-gap: 18px; }
   .spine { position: static; grid-column: 1; grid-row: 1 / 2; font-size: 15px; }
   .head { grid-column: 2; grid-row: 1; grid-template-columns: minmax(0, 1fr); row-gap: 16px; padding-left: 0; }
