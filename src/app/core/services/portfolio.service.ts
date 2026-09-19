@@ -55,28 +55,28 @@ export class PortfolioService {
   readonly skills: Skill[] = [
     // Frontend
     { name: 'Angular',        level: 88, category: 'frontend' },
-    { name: 'React',          level: 75, category: 'frontend' },
-    { name: 'TypeScript',     level: 85, category: 'frontend' },
-    { name: 'CSS / SCSS',     level: 80, category: 'frontend' },
+    { name: 'React / Next.js', level: 80, category: 'frontend' },
+    { name: 'TypeScript',     level: 86, category: 'frontend' },
+    { name: 'SCSS / Tailwind', level: 82, category: 'frontend' },
     // Backend
+    { name: 'Python / FastAPI', level: 88, category: 'backend' },
     { name: 'Spring Boot',    level: 82, category: 'backend'  },
-    { name: 'Node.js',        level: 78, category: 'backend'  },
-    { name: 'Python / Flask', level: 85, category: 'backend'  },
-    { name: 'Java / C#',      level: 80, category: 'backend'  },
-    { name: 'PostgreSQL',     level: 75, category: 'backend'  },
+    { name: 'Java / Kotlin',  level: 80, category: 'backend'  },
+    { name: 'Go',             level: 78, category: 'backend'  },
     // Cloud
-    { name: 'Docker',         level: 82, category: 'cloud'    },
-    { name: 'Kubernetes',     level: 68, category: 'cloud'    },
-    { name: 'AWS',            level: 65, category: 'cloud'    },
-    { name: 'CI/CD',          level: 78, category: 'cloud'    },
+    { name: 'AWS',            level: 78, category: 'cloud'    },
+    { name: 'Docker',         level: 84, category: 'cloud'    },
+    { name: 'CI/CD',          level: 80, category: 'cloud'    },
+    { name: 'Linux / Bash',   level: 86, category: 'cloud'    },
     // Tools
     { name: 'Git',            level: 90, category: 'tools'    },
-    { name: 'Linux / Bash',   level: 85, category: 'tools'    },
-    { name: 'Wireshark',      level: 72, category: 'tools'    },
-    { name: 'Prometheus',     level: 65, category: 'tools'    },
+    { name: 'C / Embedded',   level: 78, category: 'tools'    },
+    { name: 'ROS2 / MQTT',    level: 70, category: 'tools'    },
+    { name: 'Samba / Tailscale', level: 74, category: 'tools' },
     // Data
-    { name: 'TensorFlow',     level: 65, category: 'data'     },
-    { name: 'VTK / PyVista',  level: 75, category: 'data'     },
-    { name: 'OpenCV',         level: 72, category: 'data'     },
+    { name: 'PostgreSQL',     level: 78, category: 'data'     },
+    { name: 'Oracle / SQL',   level: 74, category: 'data'     },
+    { name: 'D3.js / Data Viz', level: 80, category: 'data'   },
+    { name: 'VTK / PyVista',  level: 78, category: 'data'     },
   ];
 }

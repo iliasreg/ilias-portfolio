@@ -288,3 +288,14 @@
 .constellation circle { fill: var(--ink); opacity: .8; animation: starPulse 3.5s ease-in-out infinite alternate; }
 .constellation circle:nth-of-type(2n) { animation-delay: -1.4s; }
 @keyframes constellationDrift { to { transform: translate(12px, -8px) scale(1.02); } } @keyframes constellationDash { to { stroke-dashoffset: -90; } } @keyframes starPulse { to { opacity: .22; transform: scale(.55); transform-origin: center; } }
+
+/* Repository link: only rendered when the project has a public repo. */
+.proj__repo { color: var(--ink); font-style: normal; letter-spacing: .1em; }
+.proj:hover .proj__repo { text-decoration: underline; }
+.focus-github { position: relative; z-index: 1; display: inline-grid; grid-template-columns: auto auto 18px; align-items: center; gap: 14px; min-height: 42px; margin: 0 0 34px; padding: 10px 0; border-top: 1px solid var(--pale); border-bottom: 1px solid var(--pale); color: var(--ink); text-decoration: none; transition: border-color .3s, padding .3s; }
+.focus-github:hover { border-color: var(--ink); padding-left: 10px; }
+.focus-github__label { color: var(--gray); font: 8px var(--mono); letter-spacing: .16em; }
+.focus-github__path { font: 11px var(--mono); }
+.focus-github:hover .focus-github__path { font-style: italic; }
+.focus-github__arr { color: var(--gray); font: 12px var(--mono); text-align: right; }
+.focus-github:hover .focus-github__arr { color: var(--ink); }

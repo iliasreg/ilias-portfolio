@@ -40,7 +40,7 @@
         <div class="proj__row">
           <span class="proj__index">{{ p.index }}</span>
           <span class="proj__title">{{ p.title }}</span>
-          <span class="proj__cat">{{ p.category }}</span>
+          <span class="proj__cat">{{ p.category }}@if (p.github) {<em class="proj__repo"> · GITHUB ↗</em>}</span>
           <span class="proj__year">{{ p.year }}</span>
           <button class="proj__toggle" type="button" (click)="toggle(p); $event.stopPropagation()" aria-label="Open project">+</button>
         </div>
@@ -57,6 +57,13 @@
           <h2>{{ p.title }}</h2>
           <div class="focus-rule"></div>
           <p class="focus-description">{{ p.description }}</p>
+          @if (p.github) {
+            <a class="focus-github" [href]="p.github" target="_blank" rel="noopener">
+              <span class="focus-github__label">GITHUB</span>
+              <span class="focus-github__path">{{ repoLabel(p.github) }}</span>
+              <span class="focus-github__arr">↗</span>
+            </a>
+          }
           <div class="focus-footer">
             <div class="proj__stack">
               <span class="tag" *ngFor="let t of p.stack">{{ t }}</span>

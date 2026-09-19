@@ -43,5 +43,9 @@ export class WorkComponent {
     }
   }
 
+  repoLabel(url?: string): string {
+    return url ? url.replace(/^https?:\/\/(www\.)?github\.com\//, '') : '';
+  }
+
   trackById(_: number, p: Project) { return p.id; }
 }

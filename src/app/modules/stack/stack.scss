@@ -218,7 +218,7 @@
 }
 
 /* Original signal map: skills orbit a quiet centre instead of sitting in a list. */
-:host { background: var(--rice); }
+:host { background: transparent; }
 .stack { max-width: 1180px; }
 .stack-intro { margin-bottom: 34px; }
 .stack-map { position: relative; min-height: 360px; padding: 0 24px 24px; background: #e8e7e0; border: 1px solid rgba(29,29,26,.28); overflow: hidden; }
@@ -232,8 +232,6 @@
 .map-orbit { position: absolute; z-index: 1; left: 50%; top: 53%; border: 1px solid rgba(29,29,26,.17); border-radius: 50%; transform: translate(-50%, -50%) rotate(-18deg); pointer-events: none; }
 .map-orbit--one { width: 270px; height: 130px; animation: orbitTilt 16s ease-in-out infinite alternate; }
 .map-orbit--two { width: 390px; height: 210px; transform: translate(-50%, -50%) rotate(32deg); animation: orbitTilt 21s ease-in-out infinite alternate-reverse; }
-.map-core { position: absolute; z-index: 2; left: 50%; top: 53%; width: 74px; height: 74px; display: grid; place-content: center; border: 1px solid var(--ink); border-radius: 50%; transform: translate(-50%, -50%); background: rgba(232,231,224,.86); color: var(--ink); text-align: center; font: 18px var(--mincho); }
-.map-core small { font: 6px var(--mono); letter-spacing: .08em; }
 .particle { position: absolute; z-index: 2; width: 4px; height: 4px; background: var(--ink); border-radius: 50%; opacity: .48; animation: particlePulse 3.4s ease-in-out infinite; }
 .particle--a { left: 24%; top: 34%; }.particle--b { right: 21%; top: 68%; animation-delay: -1.1s; }.particle--c { left: 67%; top: 25%; animation-delay: -2.1s; }
 .skill-grid { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; margin: 0; padding-top: 18px; }
@@ -243,7 +241,7 @@
 .node-level { position: absolute; left: 0; bottom: -1px; height: 1px; background: var(--ink); opacity: .72; transition: width .5s var(--ease); }
 .stack-note { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: 72px; padding-top: 20px; border-color: var(--ink); }.stack-note p { color: var(--gray); font: 8px var(--mono); text-transform: uppercase; }.stack-note p span { color: var(--ink); text-transform: none; }
 @keyframes mapDrift { to { transform: rotate(360deg) translate3d(10px, -4px, 0); } } @keyframes orbitTilt { to { transform: translate(-50%, -50%) rotate(18deg) scale(1.04); } } @keyframes particlePulse { 50% { opacity: .12; transform: scale(.55); } }
-@media (max-width: 850px) { .stack-map { padding: 0 14px 18px; }.stack .section-header { display: block; }.filters { margin-top: 12px; gap: 12px; flex-wrap: wrap; }.skill-grid { grid-template-columns: 1fr; }.map-core, .map-orbit { top: 47%; }.stack-note { grid-template-columns: 1fr; gap: 10px; } }
+@media (max-width: 850px) { .stack-map { padding: 0 14px 18px; }.stack .section-header { display: block; }.filters { margin-top: 12px; gap: 12px; flex-wrap: wrap; }.skill-grid { grid-template-columns: 1fr; }.map-orbit { top: 47%; }.stack-note { grid-template-columns: 1fr; gap: 10px; } }
 
 /* Dense constellation: every skill remains visible in one viewport. */
 :host { overflow: hidden; }
@@ -255,8 +253,8 @@
 .skill-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 14px; padding-top: 10px; }
 .skill-node { min-height: 39px; grid-template-columns: 20px minmax(0, 1fr); gap: 5px; }
 .node-name { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.node-category { grid-column: 2; font-size: 6px; margin-top: -9px; }.node-level { bottom: -1px; }
-.map-core { top: 52%; width: 64px; height: 64px; }.map-orbit--one { width: 220px; height: 108px; }.map-orbit--two { width: 330px; height: 170px; }
-@media (max-width: 850px) { .stack-intro { margin-bottom: 16px; }.stack-map { height: auto; min-height: 0; padding-bottom: 14px; }.skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 10px; }.skill-node { min-height: 38px; }.node-name { font-size: 10px; }.node-category { display: none; }.map-core, .map-orbit { top: 51%; } }
+.map-orbit--one { width: 220px; height: 108px; }.map-orbit--two { width: 330px; height: 170px; }
+@media (max-width: 850px) { .stack-intro { margin-bottom: 16px; }.stack-map { height: auto; min-height: 0; padding-bottom: 14px; }.skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 10px; }.skill-node { min-height: 38px; }.node-name { font-size: 10px; }.node-category { display: none; }.map-orbit { top: 51%; } }
 @media (max-width: 520px) { .stack-intro h1 { font-size: clamp(44px, 13vw, 66px); }.stack-map { padding-left: 10px; padding-right: 10px; }.skill-grid { gap: 0 6px; }.node-index { font-size: 7px; }.node-name { font-size: 9px; } }
 .stack-constellation { position: absolute; z-index: 1; inset: 4% 2%; width: 96%; height: 92%; opacity: .42; overflow: visible; animation: stackConstellationDrift 20s ease-in-out infinite alternate-reverse; pointer-events: none; }
 .stack-constellation path { fill: none; stroke: var(--gray); stroke-width: 1; stroke-dasharray: 4 11; animation: stackConstellationDash 16s linear infinite; }

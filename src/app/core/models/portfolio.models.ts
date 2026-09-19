@@ -8,6 +8,7 @@ export interface Project {
   description: string;
   role: string;
   link?: string;
+  github?: string;
 }
 
 export interface Skill {

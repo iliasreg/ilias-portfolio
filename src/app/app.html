@@ -1,4 +1,12 @@
 <div class="shell" [attr.data-scene]="svc.currentScene()">
+  <div class="bg-field" aria-hidden="true">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+      <path class="bg-lines" vector-effect="non-scaling-stroke" d="M8 78 L22 46 L36 62 L50 24 L66 42 L82 18 L94 34 M22 46 L30 18 L50 24 M66 42 L76 68 L90 56" />
+    </svg>
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+
   <main class="stage">
     <app-home *ngIf="svc.currentScene() === 0" animate.enter="anim-clip-up" animate.leave="anim-clip-down"></app-home>
     <app-work *ngIf="svc.currentScene() === 1" animate.enter="anim-clip-up" animate.leave="anim-clip-down"></app-work>
