@@ -258,3 +258,7 @@
 .map-core { top: 52%; width: 64px; height: 64px; }.map-orbit--one { width: 220px; height: 108px; }.map-orbit--two { width: 330px; height: 170px; }
 @media (max-width: 850px) { .stack-intro { margin-bottom: 16px; }.stack-map { height: auto; min-height: 0; padding-bottom: 14px; }.skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 10px; }.skill-node { min-height: 38px; }.node-name { font-size: 10px; }.node-category { display: none; }.map-core, .map-orbit { top: 51%; } }
 @media (max-width: 520px) { .stack-intro h1 { font-size: clamp(44px, 13vw, 66px); }.stack-map { padding-left: 10px; padding-right: 10px; }.skill-grid { gap: 0 6px; }.node-index { font-size: 7px; }.node-name { font-size: 9px; } }
+.stack-constellation { position: absolute; z-index: 1; inset: 4% 2%; width: 96%; height: 92%; opacity: .42; overflow: visible; animation: stackConstellationDrift 20s ease-in-out infinite alternate-reverse; pointer-events: none; }
+.stack-constellation path { fill: none; stroke: var(--gray); stroke-width: 1; stroke-dasharray: 4 11; animation: stackConstellationDash 16s linear infinite; }
+.stack-constellation circle { fill: var(--ink); opacity: .85; animation: stackStarPulse 3.8s ease-in-out infinite alternate; }.stack-constellation circle:nth-of-type(2n) { animation-delay: -1.8s; }
+@keyframes stackConstellationDrift { to { transform: translate(12px, -8px) scale(1.02); } } @keyframes stackConstellationDash { to { stroke-dashoffset: -90; } } @keyframes stackStarPulse { to { opacity: .22; transform: scale(.55); transform-origin: center; } }

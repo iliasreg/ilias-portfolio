@@ -283,3 +283,8 @@
 .ambient-particles i:nth-child(1) { left: 12%; top: 24%; }.ambient-particles i:nth-child(2) { left: 76%; top: 18%; animation-delay: -1.2s; }.ambient-particles i:nth-child(3) { left: 88%; top: 64%; animation-delay: -2.7s; }.ambient-particles i:nth-child(4) { left: 32%; top: 78%; animation-delay: -4.1s; }.ambient-particles i:nth-child(5) { left: 54%; top: 34%; width: 2px; height: 2px; animation-delay: -3.2s; }.ambient-particles i:nth-child(6) { left: 18%; top: 61%; width: 2px; height: 2px; animation-delay: -5.1s; }
 .work > *:not(.ambient-particles) { position: relative; z-index: 1; }
 @keyframes particleFloat { 50% { transform: translate(8px, -10px); opacity: .07; } }
+.ambient-particles .constellation { position: absolute; inset: 8% 3%; width: 94%; height: 84%; overflow: visible; opacity: .38; animation: constellationDrift 18s ease-in-out infinite alternate; }
+.constellation path { fill: none; stroke: var(--gray); stroke-width: 1; stroke-dasharray: 4 10; animation: constellationDash 14s linear infinite; }
+.constellation circle { fill: var(--ink); opacity: .8; animation: starPulse 3.5s ease-in-out infinite alternate; }
+.constellation circle:nth-of-type(2n) { animation-delay: -1.4s; }
+@keyframes constellationDrift { to { transform: translate(12px, -8px) scale(1.02); } } @keyframes constellationDash { to { stroke-dashoffset: -90; } } @keyframes starPulse { to { opacity: .22; transform: scale(.55); transform-origin: center; } }

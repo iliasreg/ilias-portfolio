@@ -32,6 +32,10 @@ export class WorkComponent {
     e.deltaY > 0 ? this.svc.next() : this.svc.prev();
   }
 
+  get selectedProject(): Project | undefined {
+    return this.svc.projects().find(p => p.id === this.openId);
+  }
+
   toggle(p: Project) {
     this.openId = this.openId === p.id ? null : p.id;
     if (this.openId !== null) {

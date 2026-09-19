@@ -1,5 +1,5 @@
 <div class="work" animate.enter="anim-clip-up">
-  <div class="ambient-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="ambient-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><svg class="constellation" viewBox="0 0 800 520" preserveAspectRatio="none"><path d="M80 150 L220 90 L360 190 L510 70 L700 150 M220 90 L280 300 L470 270 L700 150 M470 270 L650 410"/><circle cx="80" cy="150" r="3"/><circle cx="220" cy="90" r="3"/><circle cx="360" cy="190" r="3"/><circle cx="510" cy="70" r="3"/><circle cx="700" cy="150" r="3"/><circle cx="280" cy="300" r="3"/><circle cx="470" cy="270" r="3"/><circle cx="650" cy="410" r="3"/></svg></div>
   <div class="work-intro">
     <div class="work-spine">作品<br><span>SELECTED WORK</span></div>
     <div>
@@ -47,8 +47,8 @@
       </div>
     </div>
   } @else {
-    <div class="project-focus" *ngFor="let p of svc.projects(); trackBy: trackById">
-      @if (openId === p.id) {
+    @if (selectedProject; as p) {
+      <div class="project-focus">
         <div class="focus-card">
           <div class="focus-topline">
             <span>{{ p.index }} / {{ p.category }}</span>
@@ -65,8 +65,8 @@
           </div>
           <span class="focus-mark">SELECTED / PROJECT {{ p.index }}</span>
         </div>
-      }
-    </div>
+      </div>
+    }
   }
 }
 
