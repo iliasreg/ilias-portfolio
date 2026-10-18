@@ -1,26 +1,30 @@
-<div class="shell" [attr.data-scene]="svc.currentScene()">
-  <div class="bg-field" aria-hidden="true">
-    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-      <path class="bg-lines" vector-effect="non-scaling-stroke" d="M8 78 L22 46 L36 62 L50 24 L66 42 L82 18 L94 34 M22 46 L30 18 L50 24 M66 42 L76 68 L90 56" />
-    </svg>
-    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+<div class="world" aria-hidden="true"><div class="art"><img src="assets/ribbon.png" width="2400" height="1600" alt=""></div><div class="cut"></div><div class="grain"></div></div>
+<header class="mast"><span>ilias reguig / software engineer</span><a href="mailto:iliasreg18@gmail.com">AN OPEN LINE ↗</a></header>
+<main>
+  <div class="hair" aria-hidden="true"></div>
+  <section class="opening-space"><div class="opening"><span class="coordinate">THE CUT / AN EXPLODED FIELD</span><h1>Under the<br>surface.</h1><p>I build interfaces, research tools and the systems beneath them.</p><div class="opening-links"><a href="#first">PULL AT A THREAD ↓</a><a href="https://github.com/iliasreg" target="_blank" rel="noopener noreferrer">GITHUB ↗</a><a href="https://linkedin.com/in/ilias-reguig" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a></div></div></section>
+  <div id="first" class="fragments" aria-label="Projects">
+    @if (svc.projectsLoading()) { <p class="load-state" role="status">Following the threads…</p> }
+    @if (svc.projectsError()) { <p class="load-state" role="alert">The project feed is unavailable. <button type="button" (click)="svc.loadProjects()">TRY AGAIN ↗</button></p> }
+    @for (project of svc.projects(); track project.id; let i = $index) {
+      <div class="fragment-slot">
+        <article class="trace" [style.--side]="sides[i % sides.length] + '%'">
+          <span class="coordinate">FRAGMENT {{ project.index }} — {{ project.category }}</span>
+          <details #detail><summary><h2>{{ project.title }}</h2><span class="teaser">{{ project.stack.join(' / ') }} <b aria-hidden="true">↗</b></span></summary>
+            <div class="inside"><p>{{ project.description }}</p><small>{{ project.year }}</small>
+              <div class="fragment-actions">
+                @if (safeLink(project.github); as github) { <a [href]="github" target="_blank" rel="noopener noreferrer">SOURCE ↗</a> }
+                @if (safeLink(project.link); as link) { <a [href]="link" target="_blank" rel="noopener noreferrer">VISIT ↗</a> }
+                <button type="button" class="fold" (click)="detail.open = false; detail.querySelector('summary')?.focus()">FOLD BACK −</button>
+              </div>
+            </div>
+          </details>
+        </article>
+      </div>
+    }
   </div>
-
-  <main class="stage">
-    <app-home *ngIf="svc.currentScene() === 0" animate.enter="anim-clip-up" animate.leave="anim-clip-down"></app-home>
-    <app-work *ngIf="svc.currentScene() === 1" animate.enter="anim-clip-up" animate.leave="anim-clip-down"></app-work>
-    <app-stack *ngIf="svc.currentScene() === 2" animate.enter="anim-clip-up" animate.leave="anim-clip-down"></app-stack>
-    <app-contact *ngIf="svc.currentScene() === 3" animate.enter="anim-clip-up" animate.leave="anim-clip-down"></app-contact>
-  </main>
-
-  <div class="scene-index" aria-label="Section navigation">
-    <button
-      type="button"
-      *ngFor="let scene of svc.scenes"
-      [class.active]="svc.currentScene() === scene.id"
-      (click)="svc.goTo(scene.id)"
-      [attr.aria-label]="scene.label"
-    ><span class="indicator-line"></span><span class="sr-only">{{ scene.label }}</span></button>
-  </div>
-</div>
+  <aside class="annotation a">A model becomes a place.<br>A machine becomes a set of rules.<br>A log becomes a question.</aside>
+  <aside class="annotation b">Follow the fractures.<br>Every fragment opens into work.</aside>
+  <div class="interlude"><section class="study game" aria-labelledby="study-title"><h2 id="study-title">Match the frequency.</h2><svg viewBox="0 0 700 230" aria-hidden="true"><path class="baseline" d="M0 115H700"/><path id="target-wave"/><path id="player-wave"/></svg><div class="game-controls"><label>FREQUENCY <output id="frequency-value" for="frequency">220 Hz</output><input id="frequency" type="range" min="110" max="660" step="1" value="220"/></label></div><div class="lock-track" aria-hidden="true"><i id="lock-fill"></i></div><span id="game-status" class="sr-only" role="status" aria-live="polite">Match the solid wave to the dashed wave.</span><div class="study-controls"><button id="signal-audio" aria-pressed="false">SOUND OFF</button><button id="next-signal">NEW FREQUENCY ↗</button></div></section></div>
+  <footer class="end"><a href="mailto:iliasreg18@gmail.com">Start a conversation ↗</a><p>Open to full-time roles.</p></footer>
+</main><div class="edge">SCROLL / OPEN A FRAGMENT</div>

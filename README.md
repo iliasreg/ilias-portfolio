@@ -1,59 +1,25 @@
-# Portf
+# The Cut
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.3.
+Ilias Reguig’s Angular portfolio: a continuous, native-scroll field of expandable AWS-backed project fragments, a raster ASCII ribbon and diagonal difference cut. The frequency-matching interlude advances automatically; sound is optional and off by default. Reduced motion is respected, and browser effects release animation frames, observers, listeners and audio when the root is destroyed.
 
-## Development server
+## Run
 
-To start a local development server, run:
-
-```bash
-ng serve
+```sh
+npm ci
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open http://localhost:4200/.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```sh
+npm run build
+npm run serve:ssr:portf
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Production output is in `dist/portf/browser`; SSR output is in `dist/portf/server`. The existing deployment workflow is unchanged.
 
-```bash
-ng generate --help
-```
+Projects are loaded by `PortfolioService` from `https://57ks7zsm79.execute-api.us-east-1.amazonaws.com/prod/projects`, including its JSON-string `body` envelope. There are no fallback/sample projects. Artwork is local in `src/assets/ribbon.png`; no shared prototype directory is needed at runtime.
 
-## Building
+## Checks
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`npm run build` verifies Angular templates, TypeScript and SSR prerendering. This repository currently has no configured unit-test target (`npm test` cannot run a suite). In a browser, check native scrolling, every project’s details, keyboard focus, a 390px layout, reduced motion, and automatic frequency advancement with sound off/on.
