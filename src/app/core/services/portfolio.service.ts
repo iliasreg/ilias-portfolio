@@ -2,6 +2,14 @@ import { Injectable, signal, computed, WritableSignal } from '@angular/core';
 import { Project, Scene, Skill } from '../models/portfolio.models';
 import { HttpClient } from '@angular/common/http';
 
+function isProject(value: unknown): value is Project {
+  if (!value || typeof value !== 'object') return false;
+  const item = value as Record<string, unknown>;
+  return ['id', 'index', 'title', 'category', 'year', 'description'].every(key => typeof item[key] === 'string')
+    && Array.isArray(item['stack']) && item['stack'].every((tag: unknown) => typeof tag === 'string')
+    && ['github', 'link'].every(key => item[key] === undefined || typeof item[key] === 'string');
+}
+
 @Injectable({ providedIn: 'root' })
 export class PortfolioService {
 
@@ -38,11 +46,19 @@ export class PortfolioService {
     this.loadProjects();
   }
 
-  private loadProjects(){
-    this.http.get<any>(this.API + '/projects').subscribe({
+  loadProjects(): void {
+    this.projectsLoading.set(true);
+    this.projectsError.set(false);
+    this.http.get<unknown>(this.API + '/projects').subscribe({
       next: (res) => {
-        const data = typeof res.body === 'string' ? JSON.parse(res.body) : res;
-        this.projects.set(data);
+        try {
+          const body = res && typeof res === 'object' && 'body' in res ? res.body : res;
+          const data: unknown = typeof body === 'string' ? JSON.parse(body) : body;
+          if (!Array.isArray(data) || !data.every(isProject)) throw new Error('Invalid project feed');
+          this.projects.set(data);
+        } catch {
+          this.projectsError.set(true);
+        }
         this.projectsLoading.set(false);
       },
       error: () => {
